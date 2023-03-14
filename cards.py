@@ -4,11 +4,11 @@ faces = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
 suits = ["♠", "♣", "♢", "♡"]
 
 class Card:
-    def __init__(self, face, suit, low_value, high_value):
+    def __init__(self, face, suit, min_value, max_value):
         self.face = face
         self.suit = suit
-        self.low_value = low_value
-        self.high_value = high_value
+        self.min_value = min_value
+        self.max_value = max_value
 
     def __str__(self):
         return f"{self.face} {self.suit}"
@@ -19,32 +19,32 @@ class Deck:
         for suit in suits:
             for face in faces:
                 if face in ["J", "Q", "K", "A"]:
-                    low_value = 1 if face == "A" else 10
-                    high_value = 10
+                    min__value = 1 if face == "A" else 10
+                    max_value = 11 if face == "A" else 10
                 else:
-                    low_value = high_value = int(face)
+                    min_value = max_value = int(face)
                 
-                card = Card(face, suit, low_value, high_value)
+                card = Card(face, suit, min_value, max_value)
                 self.cards.append(card)
 
 class PlayingCards:
-    def __init__(self, numberOfDecks):
-        self.numberOfDecks = numberOfDecks
+    def __init__(self, number_of_decks):
+        self.number_of_decks = number_of_decks
         self.cards = []
         deck = Deck()
 
-        for _ in range(0, numberOfDecks):
+        for _ in range(0, number_of_decks):
             for card in deck.cards:
                 self.cards.append(card)
 
-    def totalNumberOfCards(self):
-        return self.numberOfDecks * 52
+    def total_number_of_cards(self):
+        return self.number_of_decks * 52
     
-    def cardsRemaining(self):
+    def cards_remaining(self):
         return len(self.cards)
     
     def shuffle(self):
-        self.__init__(self.numberOfDecks)
+        self.__init__(self.number_of_decks)
         random.shuffle(self.cards)
 
     def draw(self):
